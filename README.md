@@ -24,8 +24,8 @@ Interpreter
 
 Hosting platform
 
--replit server and uptimerobot
--replit server can be created by executing the `keep_alive.py`
+- replit server and uptimerobot
+- replit server can be created by executing the `keep_alive.py`
 after creating the server you may want to host it using hosting services,here uptimerobot.
 
 Uptimerobot
