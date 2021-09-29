@@ -16,27 +16,26 @@ wiki_img = []
 
 #a strt in the plan
 
-server_1 = 751316396742410281
-chnl_s1 = 848969368556929073
+server_1 = "Enter channel id"
+chnl_s1 = "Enter channel id"
 
-global_channel = "<#751316396742410284>"
-dump_prblms = "<#751320993632616560>"
-game_talk = "<#752894738411290666>"
-forza = "<#848145112675516457>"
-wiki = "<#848588628766097428>"
-vadivelu = "<#836083586125791283>"
-
+global_channel = "Enter channel id"
+dump_prblms = "Enter channel id"
+game_talk = "Enter channel id"
+forza = "Enter channel id"
+wiki = "Enter channel id"
+vadivelu = "Enter channel id"
 #somebodyother
 
-server_2 = 851280136015839243
-chnl_s2 = 851280136803713076
+server_2 = "Enter channel id"
+chnl_s2 = "Enter channel id"
 
 #test_server
 
-server_3 = 845729877767225344
-chnl_s3 = 848932882381537372
-bot_DM = 867353258203545620
-bot_attachments = 868804966092013568
+server_3 = "Enter channel id"
+chnl_s3 = "Enter channel id"
+bot_DM = "Enter channel id"
+bot_attachments = "Enter channel id"
 
 #colors
 colours = [
