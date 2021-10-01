@@ -434,58 +434,67 @@ async def on_message(message):
 
 	multi_str = ''' '''
 	if msg.startswith("ae"):
-		try:
-			remind = msg.split("ae ", 1)[1]
-			create_suggestion(remind)
-			await message.reply(
-			    f"Event added successfully {happy_emojis[random.randrange(0,14)]},{user_name}"
-			)
-		except:
-			await message.channel.send(
-			    f"Invalid or no argument found{sad_emojis[random.randrange(0,14)]}"
-			)
+		msgin = msg.split("ae")
+		if msgin[1].startswith(" "):
+			try:
+				remind = msg.split("ae ", 1)[1]
+				create_suggestion(remind)
+				await message.reply(
+					f"Event added successfully {happy_emojis[random.randrange(0,14)]},{user_name}"
+				)
+			except:
+				await message.channel.send(
+					f"Invalid or no argument found{sad_emojis[random.randrange(0,14)]}"
+				)
 
 	if msg.startswith("de"):
-		try:
-			suggestions = []
-			if "suggestions" in db.keys():
-				index = int(msg.split("de ", 1)[1])
-				del_suggestion(index)
-			await message.channel.send(
-			    f"Event deleted,the remaining events are")
-			suggestions = db["suggestions"]
-			n = len(suggestions)
-			for i in range(1, n):
-				multi_str += (f"{i}. {suggestions[i]}") + "\n"
-			my_embed = discord.Embed(title="The events are :-",
-			                         description=multi_str,
-			                         color=colours[random.randrange(0, 10)])
-			my_embed.set_thumbnail(url=wiki_logo)
-			my_embed.set_author(name=user_name,
-			                    icon_url=message.author.avatar_url)
-			my_embed.set_footer(text="Nothing to look here")
-			await message.channel.send(embed=my_embed)
+		msgin = msg.split("de")
+		if msgin[1].startswith(" "):
+			try:
+				suggestions = []
+				if "suggestions" in db.keys():
+					index = int(msg.split("de ", 1)[1])
+					n = len(suggestions)
+					if index <= n:
+						del_suggestion(index)
+						await message.channel.send(f"Event deleted,the remaining events are")
+						suggestions = db["suggestions"]
+						n = len(suggestions)
+						for i in range(1, n):
+							multi_str += (f"{i}. {suggestions[i]}") + "\n"
+						my_embed = discord.Embed(title="The events are :-",
+												description=multi_str,
+												color=colours[random.randrange(0, 10)])
+						my_embed.set_thumbnail(url=wiki_logo)
+						my_embed.set_author(name=user_name,
+											icon_url=message.author.avatar_url)
+						my_embed.set_footer(text="Nothing to look here")
+						await message.channel.send(embed=my_embed)
+					else:
+						await message.channel.send("No event found") #Customized message 
 
-		except:
-			await message.channel.send(
-			    f"Invalid or no argument found{sad_emojis[random.randrange(0,14)]}"
-			)
+			except:
+				await message.channel.send(
+					f"Invalid or no argument found{sad_emojis[random.randrange(0,14)]}"
+				)
 
 	if msg.startswith("re"):
-		reminders = []
-		if "suggestions" in db.keys():
-			reminders = db["suggestions"]
-			n = len(reminders)
-			for i in range(1, n):
-				multi_str += (f"{i} .{reminders[i]}") + "\n"
-			my_embed = discord.Embed(title="The events are :-",
-			                         description=multi_str,
-			                         color=colours[random.randrange(0, 10)])
-			my_embed.set_author(name=user_name,
-			                    icon_url=message.author.avatar_url)
-			my_embed.set_footer(
-			    text="To add new events use 'ae' to delete use 'de'.")
-			await message.channel.send(embed=my_embed)
+		msgin = msg.split("re")
+		if msgin[1]== "" or msgin[1] == " ":
+			reminders = []
+			if "suggestions" in db.keys():
+				reminders = db["suggestions"]
+				n = len(reminders)
+				for i in range(1, n):
+					multi_str += (f"{i} .{reminders[i]}") + "\n"
+				my_embed = discord.Embed(title="The events are :-",
+										description=multi_str,
+										color=colours[random.randrange(0, 10)])
+				my_embed.set_author(name=user_name,
+									icon_url=message.author.avatar_url)
+				my_embed.set_footer(
+					text="To add new events use 'ae' to delete use 'de'.")
+				await message.channel.send(embed=my_embed)		
 
 	if any(word in msg for word in options):
 		bot_pick = random.choice(options)
