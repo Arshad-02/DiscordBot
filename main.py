@@ -471,7 +471,7 @@ async def on_message(message):
 			    f"Invalid or no argument found{sad_emojis[random.randrange(0,14)]}"
 			)
 
-	if msg.startswith("re"):
+	if msg == "re":
 		reminders = []
 		if "suggestions" in db.keys():
 			reminders = db["suggestions"]
