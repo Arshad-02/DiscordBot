@@ -181,19 +181,7 @@ async def on_member_join(member):
 		await channel.send(embed=my_embed)
 
 	else:
-		guild = client.get_guild(845729877767225344)
-		channel = guild.get_channel(848932882381537372)
-		user_name = str(member).split('#')[0]
-		my_embed = discord.Embed(
-		    title=f"NEW MEMBER ALERT",
-		    description=
-		    f'''welcome {member.mention} to {guild.name} :partying_face:. Enjoy your stay:hugging:''',
-		    color=colours[random.randrange(0, 10)])
-		my_embed.set_author(name=f"Hello {user_name}",
-		                    icon_url=member.avatar_url)
-		my_embed.set_footer(text="Type Alfred help to know more")
-		my_embed.set_image(url=str(gif))
-		await channel.send(embed=my_embed)
+                pass
 
 
 @client.event
@@ -223,12 +211,7 @@ async def on_member_remove(member):
 		await channel.send(embed=my_embed)
 
 	else:
-		guild = client.get_guild(server_3)
-		channel = guild.get_channel(chnl_s3)
-		my_embed = discord.Embed(
-		    title="SOMEONE LEFT",
-		    description=f"{member.name} has left the server")
-		await channel.send(embed=my_embed)
+		pass
 
 
 @client.event
@@ -290,7 +273,7 @@ async def on_message(message):
 
 	names = ''' '''
 	if msg.startswith("Server count"):
-		if str(message.author.id) == "751290034552045681":
+		if str(message.author.id) == "user_id":
 			server_names = list(client.guilds)
 			n = 0
 			for guild in client.guilds:
@@ -497,51 +480,17 @@ async def on_message(message):
 				await message.channel.send(embed=my_embed)		
 
 	if any(word in msg for word in options):
-		bot_pick = random.choice(options)
-		if bot_pick == "Rock":
-			if bot_pick == msg:
-				await message.channel.send(
-				    f"My {bot_pick} nullifies your {msg} it's a draw {happy_emojis[random.randrange(0,14)]} "
-				)
-			elif msg == "Scissors":
-				await message.channel.send(
-				    f"My {bot_pick} brakes your {msg} horrah :clap: I won,well played {happy_emojis[random.randrange(0,14)]}"
-				)
-			elif msg == "Paper":
-				await message.channel.send(
-				    f"My {bot_pick} is wrapped by your {msg} you won :sparkles:"
-				)
-
-		elif bot_pick == "Paper":
-			if bot_pick == msg:
-				await message.channel.send(
-				    f"My {bot_pick}  nullifies your {msg} it's a draw {happy_emojis[random.randrange(0,14)]}"
-				)
-			elif msg == "Scissors":
-				await message.channel.send(
-				    f"My {bot_pick} is shredded by your {msg} hurrah :clap: you won,well played {happy_emojis[random.randrange(0,14)]}"
-				)
-			elif msg == "Rock":
-				await message.channel.send(
-				    f"My {bot_pick} wrapped your {msg}, Rimp I won :sparkles:")
-
-		elif bot_pick == "Scissors":
-			if bot_pick == msg:
-				await message.channel.send(
-				    f"My {bot_pick} nullifies your {msg} it's a draw {happy_emojis[random.randrange(0,14)]}"
-				)
-			elif msg == "Rock":
-				await message.channel.send(
-				    f"My {bot_pick} were broken by your {msg} horrah :clap: you won,well played {happy_emojis[random.randrange(0,14)]}"
-				)
-			elif msg == "Paper":
-				await message.channel.send(
-				    f"My {bot_pick} cuts your {msg} Rimp I won :sparkles:")
-
-		else:
-			await message.channel.send(
-			    f"Unable to process response {sad_emojis[random.randrange(0,14)]}"
-			)
+                user_choice = msg
+		choice = random.choice(options)
+		def rps(user_choice,choice):
+                    if (user_choice == "Rock" and choice == "Scissors") or (user_choice == "Paper" and choice == "Rock") or (user_choice == "Scissors" and choice == "Paper"):
+                        return True  
+                if user_choice == choice:
+                    await message.reply(f"It's a tie, Your choice : {user_choice} my choice :{choice}")
+                elif rps(user_choice,choice):
+                    await message.reply(f"You Won, Your choice :{user_choice} my choice :{choice}")
+                else:
+                    await message.reply(f"You lose, Your choice :{user_choice} my choice :{choice}")
 
 	if msg.startswith("Pfp"):
 		try:
@@ -617,7 +566,7 @@ async def on_message(message):
 		mts = int(mts) + 30
 		hrs = int(hrs) + 5
 		noon = "AM"
-		if hrs >= 13:
+		if hrs >= 12:
 			noon = "PM"
 			hrs -= 12
 		if mts > 60:
