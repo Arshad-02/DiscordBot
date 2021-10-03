@@ -229,7 +229,7 @@ async def on_message(message):
     :four: Wiki random : Returns a random article from wikipedia.
     :five: Time : returns Time (IST)
 
-    **TRY OUR MINI GAMES** :video_game:
+    :video_game: **TRY OUR MINI GAMES** :video_game:
     :one: :rock: Rock :scroll: Paper :scissors: Scissors.
     :two: Roll :Rolls a :game_die: for you.
 
@@ -315,11 +315,15 @@ async def on_message(message):
 			no = random.randrange(0, 9)
 			title_url = wikipedia.page(wiki_search_colon).url
 			img = wikipedia.page(wiki_search_colon).images[no]
-			check = img.split(".s", 1)
-			if check[-1] == "vg":
-				img = ""
-			else:
-				img = img
+			check = img.split(".")[-1]
+                        num = 0
+                        while check != "jpg":
+                            img = wikipedia.page(wiki_search_colon).images[num]
+                            num+=1
+                            check = img.split(".")[-1]
+                            if no>9:
+                                img = ""
+                                break
 			info = wikipedia.summary(wiki_search_colon, sentences=6)
 			my_embed = discord.Embed(title=wiki_search,
 			                         url=title_url,
@@ -336,7 +340,7 @@ async def on_message(message):
 		except wikipedia.DisambiguationError as e:
 			test = e.options
 			test = test[0]
-			t_url = wikipedia.page(test).url
+			t_url = wikipedia.page(test).url        
 			t_info = wikipedia.summary(test, sentences=6)
 			t_img = wikipedia.page(test).images[0]
 			check = t_img.split(".s", 1)
@@ -389,6 +393,13 @@ async def on_message(message):
 			    f"Processing your request... :mag: ,{user_name}.")
 			no = random.randrange(0, 9)
 			img = wikipedia.page(wiki_img_colon).images[no]
+			while check != "jpg":
+                            img = wikipedia.page(wiki_search_colon).images[num]
+                            num+=1
+                            check = img.split(".")[-1]
+                            if no>9:
+                                img = ""
+                                break
 			my_embed = discord.Embed(title=wiki_img,
 			                         description=message.author.mention,
 			                         url=img,
