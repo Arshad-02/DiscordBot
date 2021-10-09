@@ -16,26 +16,36 @@ wiki_img = []
 
 #a strt in the plan
 
-server_1 = "Enter channel id"
-chnl_s1 = "Enter channel id"
+server_1 = 751316396742410281
+chnl_s1 = 848969368556929073
 
-global_channel = "Enter channel id"
-dump_prblms = "Enter channel id"
-game_talk = "Enter channel id"
-forza = "Enter channel id"
-wiki = "Enter channel id"
-vadivelu = "Enter channel id"
+global_channel = "<#751316396742410284>"
+dump_prblms = "<#751320993632616560>"
+game_talk = "<#752894738411290666>"
+forza = "<#848145112675516457>"
+wiki = "<#848588628766097428>"
+vadivelu = "<#836083586125791283>"
+
 #somebodyother
 
-server_2 = "Enter channel id"
-chnl_s2 = "Enter channel id"
+server_2 = 851280136015839243
+chnl_s2 = 851280136803713076
 
 #test_server
 
-server_3 = "Enter channel id"
-chnl_s3 = "Enter channel id"
-bot_DM = "Enter channel id"
-bot_attachments = "Enter channel id"
+server_3 = 845729877767225344
+chnl_s3 = 848932882381537372
+bot_DM = 867353258203545620
+bot_attachments = 868804966092013568
+
+#SASTRA
+server_4 = 884963094672048179
+chnl_s4 = 884963094672048181
+introduction = "<#894894689981956106>"
+welcome = "<#884963094672048181>"
+announcements = "<#884963094672048182>"
+self_roles = "<#894163842932809748>"
+lounge = "<#884963094672048184>"
 
 #colors
 colours = [
@@ -49,6 +59,7 @@ events = ["Your events"]
 intents = discord.Intents.default()
 intents.members = True
 client = discord.Client(intents=intents)
+add = "hehe"
 
 #Wiki_bot link
 
@@ -57,7 +68,7 @@ wiki_logo = "https://qph.fs.quoracdn.net/main-qimg-779140d430142f1106de50c12a07c
 bot_id = ["<@845730225249452112>"]
 #Choices
 
-options = ["Paper", "Rock", "Scissors", "Rock", "Scissors", "Paper"]
+options = ["Paper", "Rock", "Scissors"]
 soccer = ["Left", "Middle", "Right"]
 goalkeeper = [
     ''':goal::goal::goal:
@@ -86,7 +97,8 @@ happy_emojis = [
     ":smile_cat:", ":handshake:", ":crown:", ":star2:", ":dizzy:", ":boom:",
     ":rainbow:", ":snowman2:", ":sparkling_heart:", ":wink:"
 ]
-gif = "https://media.tenor.com/images/e54cc144e10289281a8e14974ea665bf/tenor.gif"
+
+gif = "https://c.tenor.com/KjQ2P7lN0dUAAAAC/baby-yoda-hi.gif"
 
 #Database_Functions
 
@@ -133,7 +145,7 @@ async def on_member_join(member):
 		my_embed = discord.Embed(
 		    title=f"NEW MEMBER ALERT",
 		    description=
-		    f'''welcome {member.mention} to {guild.name} :partying_face:. Enjoy your stay:hugging:.
+		    f'''Welcome {member.mention} to {guild.name} :partying_face:. Enjoy your stay:hugging:.
           here are the channels and their purposes,
           :one:{global_channel} To just hang around.
           :two:{dump_prblms} Venting.
@@ -150,19 +162,26 @@ async def on_member_join(member):
 		my_embed.set_image(url=str(gif))
 		await channel.send(embed=my_embed)
 
-	elif member.guild.id == server_2:
-		guild = client.get_guild(server_2)
-		channel = guild.get_channel(chnl_s2)
+	elif member.guild.id == server_4:
+		guild = client.get_guild(server_4)
+		channel = guild.get_channel(chnl_s4)
 		user_name = str(member).split('#')[0]
 		my_embed = discord.Embed(
 		    title=f"NEW MEMBER ALERT",
-		    description=
-		    f'''welcome {member.mention} to {guild.name} :partying_face:. Enjoy your stay:hugging:''',
+		    description=f'''Welcome {member.mention} to {guild.name} :partying_face:,Enjoy your stay.:hugging:
+    Here are some information to get you started with,
+	:sparkles:{lounge} A lively place to hang out.
+	:one:{introduction} A place to let other people know you better.
+	:two:{welcome} Get to know when new people join.
+	:three:{announcements} Know bout all the important things happening around.
+	:four:{self_roles} To get to know you better, add rolls you are/like,
+	after which you'll see channels related to that
+	:five:We also have other channels like bots,VCs...''',
 		    color=colours[random.randrange(0, 10)])
 		my_embed.set_author(name=f"Hello {user_name}",
 		                    icon_url=member.avatar_url)
 		my_embed.set_footer(text="Type Alfred help to know more")
-		my_embed.set_image(url=str(gif))
+		my_embed.set_image(url= str(gif))
 		await channel.send(embed=my_embed)
 
 	elif member.guild.id == server_3:
@@ -177,11 +196,38 @@ async def on_member_join(member):
 		my_embed.set_author(name=f"Hello {user_name}",
 		                    icon_url=member.avatar_url)
 		my_embed.set_footer(text="Type Alfred help to know more")
-		my_embed.set_image(url=str(gif))
+		my_embed.set_image(url= str(gif))
+		await channel.send(embed=my_embed)
+	
+	elif member.guild.id == server_2:
+		guild = client.get_guild(server_2)
+		channel = guild.get_channel(chnl_s2)
+		user_name = str(member).split('#')[0]
+		my_embed = discord.Embed(
+		    title=f"NEW MEMBER ALERT",
+		    description=
+		    f'''welcome {member.mention} to {guild.name} :partying_face:. Enjoy your stay:hugging:''',
+		    color=colours[random.randrange(0, 10)])
+		my_embed.set_author(name=f"Hello {user_name}",
+		                    icon_url=str(member.avatar_url))
+		my_embed.set_footer(text="Type Alfred help to know more")
+		my_embed.set_image(url= str(gif))
 		await channel.send(embed=my_embed)
 
 	else:
-                pass
+		guild = client.get_guild(845729877767225344)
+		channel = guild.get_channel(848932882381537372)
+		user_name = str(member).split('#')[0]
+		my_embed = discord.Embed(
+		    title=f"NEW MEMBER ALERT",
+		    description=
+		    f'''welcome {user_name} to {guild.name} :partying_face:. Enjoy your stay:hugging:''',
+		    color=colours[random.randrange(0, 10)])
+		my_embed.set_author(name=f"Hello {user_name}",
+		                    icon_url=member.avatar_url)
+		my_embed.set_footer(text="Type Alfred help to know more")
+		my_embed.set_image(url=str(gif))
+		await channel.send(embed=my_embed)
 
 
 @client.event
@@ -210,6 +256,13 @@ async def on_member_remove(member):
 		    description=f"{member.name} has left the server")
 		await channel.send(embed=my_embed)
 
+	elif member.guild.id == server_4:
+		guild = client.get_guild(server_4)
+		channel = guild.get_channel(chnl_s4)
+		my_embed = discord.Embed(
+		    title="SOMEONE LEFT",
+		    description=f"{member.name} has left the server")
+		await channel.send(embed=my_embed)
 	else:
 		pass
 
@@ -229,7 +282,7 @@ async def on_message(message):
     :four: Wiki random : Returns a random article from wikipedia.
     :five: Time : returns Time (IST)
 
-    :video_game: **TRY OUR MINI GAMES** :video_game:
+    **TRY OUR MINI GAMES** :video_game:
     :one: :rock: Rock :scroll: Paper :scissors: Scissors.
     :two: Roll :Rolls a :game_die: for you.
 
@@ -254,8 +307,7 @@ async def on_message(message):
     :two: You can now send and recieve pictures, to and from the developers through bot DMs.
 
     **:gear:BETA::gear:**
-      :one: When sent a yt link:Returns downloadable link
-      :two: Soccer:soccer:.
+      :one: Soccer:soccer:.
       **MORE FEATURES COMING SOON**'''
 		my_embed = discord.Embed(title="Bot commands",
 		                         description=features,
@@ -273,7 +325,7 @@ async def on_message(message):
 
 	names = ''' '''
 	if msg.startswith("Server count"):
-		if str(message.author.id) == "user_id":
+		if str(message.author.id) == "751290034552045681":
 			server_names = list(client.guilds)
 			n = 0
 			for guild in client.guilds:
@@ -316,14 +368,18 @@ async def on_message(message):
 			title_url = wikipedia.page(wiki_search_colon).url
 			img = wikipedia.page(wiki_search_colon).images[no]
 			check = img.split(".")[-1]
-                        num = 0
-                        while check != "jpg":
-                            img = wikipedia.page(wiki_search_colon).images[num]
-                            num+=1
-                            check = img.split(".")[-1]
-                            if no>9:
-                                img = ""
-                                break
+			num = 0
+			while check != "jpg":
+				img = wikipedia.page(wiki_search_colon).images[num]
+				num+=1
+				check = img.split(".")[-1]
+				if check == "jpg":
+					break
+				if check == "png":
+					break
+				if num > 3:
+					img = "https://bitsofco.de/content/images/2018/12/broken-1.png"
+					break
 			info = wikipedia.summary(wiki_search_colon, sentences=6)
 			my_embed = discord.Embed(title=wiki_search,
 			                         url=title_url,
@@ -340,7 +396,7 @@ async def on_message(message):
 		except wikipedia.DisambiguationError as e:
 			test = e.options
 			test = test[0]
-			t_url = wikipedia.page(test).url        
+			t_url = wikipedia.page(test).url
 			t_info = wikipedia.summary(test, sentences=6)
 			t_img = wikipedia.page(test).images[0]
 			check = t_img.split(".s", 1)
@@ -392,14 +448,23 @@ async def on_message(message):
 			await message.channel.send(
 			    f"Processing your request... :mag: ,{user_name}.")
 			no = random.randrange(0, 9)
+			title_url = wikipedia.page(wiki_img_colon).url
 			img = wikipedia.page(wiki_img_colon).images[no]
+			check = img.split(".")[-1]
+			print(check)
+			num = 0
 			while check != "jpg":
-                            img = wikipedia.page(wiki_search_colon).images[num]
-                            num+=1
-                            check = img.split(".")[-1]
-                            if no>9:
-                                img = ""
-                                break
+				img = wikipedia.page(wiki_img_colon).images[num]
+				num+=1
+				check = img.split(".")[-1]
+				if check == "jpg":
+					break
+				if check == "png":
+					break
+				print(check) 
+				if num > 5:
+					img = "https://bitsofco.de/content/images/2018/12/broken-1.png"
+					break
 			my_embed = discord.Embed(title=wiki_img,
 			                         description=message.author.mention,
 			                         url=img,
@@ -428,33 +493,30 @@ async def on_message(message):
 
 	multi_str = ''' '''
 	if msg.startswith("ae"):
-		msgin = msg.split("ae")
-		if msgin[1].startswith(" "):
-			try:
-				remind = msg.split("ae ", 1)[1]
-				create_suggestion(remind)
-				await message.reply(
-					f"Event added successfully {happy_emojis[random.randrange(0,14)]},{user_name}"
-				)
-			except:
-				await message.channel.send(
-					f"Invalid or no argument found{sad_emojis[random.randrange(0,14)]}"
-				)
+		try:
+			remind = msg.split("ae ", 1)[1]
+			create_suggestion(remind)
+			await message.reply(
+				f"Event added successfully {happy_emojis[random.randrange(0,14)]},{user_name}")
+		except:
+			pass
 
 	if msg.startswith("de"):
-		msgin = msg.split("de")
-		if msgin[1].startswith(" "):
+		try:
+			check = int(msg.split("de ")[-1])
 			try:
 				suggestions = []
 				if "suggestions" in db.keys():
-					index = int(msg.split("de ", 1)[1])
+					suggestions = db["suggestions"]
 					n = len(suggestions)
-					if index <= n:
+					index = int(msg.split("de ", 1)[1])
+					if len(suggestions) >= index:
 						del_suggestion(index)
-						await message.channel.send(f"Event deleted,the remaining events are")
+						await message.channel.send(
+						f"Event deleted,the remaining events are")
 						suggestions = db["suggestions"]
-						n = len(suggestions)
-						for i in range(1, n):
+						t = len(suggestions)
+						for i in range(1, t):
 							multi_str += (f"{i}. {suggestions[i]}") + "\n"
 						my_embed = discord.Embed(title="The events are :-",
 												description=multi_str,
@@ -465,16 +527,16 @@ async def on_message(message):
 						my_embed.set_footer(text="Nothing to look here")
 						await message.channel.send(embed=my_embed)
 					else:
-						await message.channel.send("No event found") #Customized message 
-
+						await message.channel.send("No such element exists")
 			except:
 				await message.channel.send(
-					f"Invalid or no argument found{sad_emojis[random.randrange(0,14)]}"
-				)
+					f"Invalid or no argument found{sad_emojis[random.randrange(0,14)]}")
+		except ValueError:
+			pass
 
 	if msg.startswith("re"):
-		msgin = msg.split("re")
-		if msgin[1]== "" or msgin[1] == " ":
+		check = msg.split("re")[1]
+		if check == "":
 			reminders = []
 			if "suggestions" in db.keys():
 				reminders = db["suggestions"]
@@ -488,20 +550,23 @@ async def on_message(message):
 									icon_url=message.author.avatar_url)
 				my_embed.set_footer(
 					text="To add new events use 'ae' to delete use 'de'.")
-				await message.channel.send(embed=my_embed)		
+				await message.channel.send(embed=my_embed)
 
 	if any(word in msg for word in options):
-                user_choice = msg
-		choice = random.choice(options)
-		def rps(user_choice,choice):
-                    if (user_choice == "Rock" and choice == "Scissors") or (user_choice == "Paper" and choice == "Rock") or (user_choice == "Scissors" and choice == "Paper"):
-                        return True  
-                if user_choice == choice:
-                    await message.reply(f"It's a tie, Your choice : {user_choice} my choice :{choice}")
-                elif rps(user_choice,choice):
-                    await message.reply(f"You Won, Your choice :{user_choice} my choice :{choice}")
-                else:
-                    await message.reply(f"You lose, Your choice :{user_choice} my choice :{choice}")
+		if len(msg.split()) > 1 :
+			pass
+		else:
+			user_choice = msg
+			choice = random.choice(options)
+			def rps(user_choice,choice):
+				if (user_choice == "Rock" and choice == "Scissors") or (user_choice == "Paper" and choice == "Rock") or (user_choice == "Scissors" and choice == "Paper"):
+					return True
+			if choice == user_choice:
+				await message.reply(f"It's a tie {happy_emojis[random.randrange(0,14)]},{user_name},\nYou chose :{user_choice}\nI chose:{choice}")
+			elif rps(user_choice,choice):
+				await message.reply(f"You win {happy_emojis[random.randrange(0,14)]},{user_name},\nYou chose :{user_choice}\nI chose:{choice}")
+			else:
+				await message.reply(f"You lose {sad_emojis[random.randrange(0,14)]},\nYou chose :{user_choice}\nI chose:{choice}")
 
 	if msg.startswith("Pfp"):
 		try:
@@ -542,7 +607,7 @@ async def on_message(message):
 			    f"Invalid or no argument found{sad_emojis[random.randrange(0,14)]}"
 			)
 
-	if msg.startswith("Soccer"):
+	if msg.startswith("Soccer1234"):
 		get_msg = await message.channel.send(goalkeeper[1])
 		get_id = get_msg.id
 		time.sleep(2)
@@ -571,20 +636,23 @@ async def on_message(message):
 		await message.reply(embed=my_embed)
 
 	if msg.startswith("Time"):
-		time_rn = strftime("%H:%M", gmtime())
-		hrs = time_rn.split(":", 1)[0]
-		mts = time_rn.split(":", 1)[1]
-		mts = int(mts) + 30
-		hrs = int(hrs) + 5
-		noon = "AM"
-		if hrs >= 12:
-			noon = "PM"
-			hrs -= 12
-		if mts > 60:
-			hrs += 1
-			mts = mts - 60
-		get_time = (f"{hrs}:{mts} {noon}")
-		await message.channel.send(get_time)
+		if len(msg.split()) > 1:
+			pass
+		else:
+			time_rn = strftime("%H:%M", gmtime())
+			hrs = time_rn.split(":", 1)[0]
+			mts = time_rn.split(":", 1)[1]
+			mts = int(mts) + 30
+			hrs = int(hrs) + 5
+			noon = "AM"
+			if hrs >= 12:
+				noon = "PM"
+				hrs -= 12
+			if mts > 60:
+				hrs += 1
+				mts = mts - 60
+			get_time = (f"{hrs}:{mts} {noon}")
+			await message.channel.send(get_time)
 
 	get_attachment = []
 	if str(message.channel.type) == "private":
@@ -626,11 +694,8 @@ async def on_message(message):
 			)
 
 	if msg.startswith("Testing"):
-		await message.reply("Got it")
+		await message.reply(":one:no space")
   
-
-
-
 #Execution
 
 keep_alive()
