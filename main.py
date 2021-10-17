@@ -48,18 +48,42 @@ self_roles = "<#894163842932809748>"
 lounge = "<#884963094672048184>"
 
 #colors
+
 colours = [
     0xfc0303, 0xfc7303, 0xfcdf0, 0x88fc03, 0x03fc80, 0x03fcdb, 0x03b1fc,
     0x9d03fc, 0xd203fc, 0xfc03c6, 0xfc0303
 ]
+#db
 events = ["Your events"]
+#8ball
+
+responses = [
+"It is certain.",
+"It is decidedly so.",
+"Without a doubt.",
+"Yes - definitely.",
+"You may rely on it.",
+"As I see it, yes.",
+"Most likely.",
+"Outlook good.",
+"Yes.",
+"Signs point to yes.",
+"Reply hazy, try again.",
+"Ask again later.",
+"Better not tell you now.",
+"Cannot predict now.",
+"Concentrate and ask again.",
+"Don't count on it.",
+"My reply is no.",
+"My sources say no.",
+"Outlook not so good.",
+"Very doubtful."]
 
 #presence intent
 
 intents = discord.Intents.default()
 intents.members = True
 client = discord.Client(intents=intents)
-add = "hehe"
 
 #Wiki_bot link
 
@@ -276,15 +300,16 @@ async def on_message(message):
 
 	if msg.startswith('Alfred help'):
 		features = '''    :space_invader: **WELCOME TO WIKI BOT** :space_invader: 
-    :one: Wf(Wiki find): Searches for the topic in wikipedia.
-    :two: Ws(Wiki summary): Returns a short summary of the topic.
-    :three: Wimg(Wiki img): Returns a image related to the topic.
+    :one: wf(Wiki find): Searches for the topic in wikipedia.
+    :two: ws(Wiki summary): Returns a short summary of the topic.
+    :three: wimg(Wiki img): Returns a image related to the topic.
     :four: Wiki random : Returns a random article from wikipedia.
-    :five: Time : returns Time (IST)
+    :five: time : returns Time (IST)
 
     **TRY OUR MINI GAMES** :video_game:
     :one: :rock: Rock :scroll: Paper :scissors: Scissors.
     :two: Roll :Rolls a :game_die: for you.
+	:three: *ball :8ball <your question>.
 
     :notebook_with_decorative_cover: **TRY OUR EVENTS REMINDER** :notebook_with_decorative_cover:
     :warning: It's still in beta and all events are stored under same name/Database \n Individual event reminder will be available soon :warning:
@@ -295,8 +320,9 @@ async def on_message(message):
     :technologist:**SERVER LEVEL COMMANDS**:technologist:
     :one: id <mention>/sticker:Returns the id.
     :two: Tag <mention/s>:Tags the person anonymously.
-    :three: Pfp <mention>:Returns the pfp of the person.
+    :three: pfp <mention>:Returns the pfp of the person.
     :four: Add Alfred: Returns a link to add to new servers.
+	:five: echo <your text>: Echos back user text. 
 
     **WELCOMING USERS AND ALERTS**:
     :new:Welcomes new users and sends alerts when a member leaves:new:.
@@ -314,7 +340,7 @@ async def on_message(message):
 		                         color=colours[random.randrange(0, 10)])
 		my_embed.set_author(name=f"Hello {user_name}, here are my",
 		                    icon_url=message.author.avatar_url)
-		my_embed.set_footer(text="Drop your suggestion at Bot DMs ")
+		my_embed.set_footer(text="Prefix all commands with '.' ")
 
 		await message.channel.send(embed=my_embed)
 
@@ -345,9 +371,9 @@ async def on_message(message):
 		else:
 			return
 
-	if msg.startswith("Wf"):
+	if msg.startswith(".wf"):
 		try:
-			wiki_find = msg.split("Wf ", 1)[1]
+			wiki_find = msg.split(".wf ", 1)[1]
 			await message.channel.send(
 			    f"Processing your request... :mag: ,{user_name}.")
 			await message.channel.send(wikipedia.search(wiki_find, results=5))
@@ -358,9 +384,9 @@ async def on_message(message):
 			    f"Invalid or no argument found {sad_emojis[random.randrange(0,14)]}"
 			)
 
-	if msg.startswith("Ws"):
+	if msg.startswith(".ws"):
 		try:
-			wiki_search = msg.split("Ws ", 1)[1]
+			wiki_search = msg.split(".ws ", 1)[1]
 			wiki_search_colon = ":" + wiki_search + ":"
 			await message.channel.send(
 			    f"Processing your request... :mag: ,{user_name}.")
@@ -441,9 +467,9 @@ async def on_message(message):
 		my_embed.set_author(name=user_name, icon_url=message.author.avatar_url)
 		await message.channel.send(embed=my_embed)
 
-	if msg.startswith("Wimg"):
+	if msg.startswith(".wimg"):
 		try:
-			wiki_img = msg.split("Wimg ", 1)[1]
+			wiki_img = msg.split(".wimg ", 1)[1]
 			wiki_img_colon = ":" + wiki_img + ":"
 			await message.channel.send(
 			    f"Processing your request... :mag: ,{user_name}.")
@@ -492,24 +518,24 @@ async def on_message(message):
 		await message.reply(embed=my_embed)
 
 	multi_str = ''' '''
-	if msg.startswith("ae"):
+	if msg.startswith(".ae"):
 		try:
-			remind = msg.split("ae ", 1)[1]
+			remind = msg.split(".ae ", 1)[1]
 			create_suggestion(remind)
 			await message.reply(
 				f"Event added successfully {happy_emojis[random.randrange(0,14)]},{user_name}")
 		except:
 			pass
 
-	if msg.startswith("de"):
+	if msg.startswith(".de"):
 		try:
-			check = int(msg.split("de ")[-1])
+			check = int(msg.split(".de ")[-1])
 			try:
 				suggestions = []
 				if "suggestions" in db.keys():
 					suggestions = db["suggestions"]
 					n = len(suggestions)
-					index = int(msg.split("de ", 1)[1])
+					index = int(msg.split(".de ", 1)[1])
 					if len(suggestions) >= index:
 						del_suggestion(index)
 						await message.channel.send(
@@ -534,8 +560,8 @@ async def on_message(message):
 		except ValueError:
 			pass
 
-	if msg.startswith("re"):
-		check = msg.split("re")[1]
+	if msg.startswith(".re"):
+		check = msg.split(".re")[1]
 		if check == "":
 			reminders = []
 			if "suggestions" in db.keys():
@@ -568,37 +594,38 @@ async def on_message(message):
 			else:
 				await message.reply(f"You lose {sad_emojis[random.randrange(0,14)]},\nYou chose :{user_choice}\nI chose:{choice}")
 
-	if msg.startswith("Pfp"):
-		try:
-			pfp = msg.split("Pfp ", 1)[1]
+	if msg.startswith(".pfp"):
+
+			pfp = msg.split(".pfp ", 1)[1]
 			pfp = pfp.replace("<", "")
 			pfp = pfp.replace(">", "")
 			pfp = pfp.replace("@", "")
+			pfp = pfp.replace("!","")
 			user = await message.guild.fetch_member(int(pfp))
 			my_embed = discord.Embed(title=f"Pfp of {user}",
 			                         color=colours[random.randrange(0, 10)])
 			my_embed.set_image(url=user.avatar_url)
 			await message.channel.send(embed=my_embed)
-		except:
-			await message.channel.send(
-			    f"Invalid or no argument found{sad_emojis[random.randrange(0,14)]}"
-			)
 
-	if msg.startswith("Roll"):
-		await message.reply(die_face[random.randrange(0, 12)])
 
-	if msg.startswith("Tag"):
+	if msg.startswith(".roll"):
+		if msg == ".roll":
+			await message.reply(die_face[random.randrange(0, 12)])
+		else:
+			pass
+
+	if msg.startswith(".tag"):
 		try:
-			id = msg.split("Tag ")[1]
+			id = msg.split(".tag ")[1]
 			await message.delete()
 			await message.channel.send(f"Hello {id}")
 		except:
 			await message.channel.send(
 			    f"Invalid or no argument found{sad_emojis[random.randrange(0,14)]}"
 			)
-	if msg.startswith("id"):
+	if msg.startswith(".id"):
 		try:
-			emoji = msg.split("id ")[1]
+			emoji = msg.split(".id ")[1]
 			emoji = emoji.replace("<", "|")
 			emoji = emoji.replace(">", "|")
 			await message.reply(emoji)
@@ -607,7 +634,7 @@ async def on_message(message):
 			    f"Invalid or no argument found{sad_emojis[random.randrange(0,14)]}"
 			)
 
-	if msg.startswith("Soccer1234"):
+	if msg.startswith(".Soccer1234"):
 		get_msg = await message.channel.send(goalkeeper[1])
 		get_id = get_msg.id
 		time.sleep(2)
@@ -635,7 +662,7 @@ async def on_message(message):
 		)
 		await message.reply(embed=my_embed)
 
-	if msg.startswith("Time"):
+	if msg.startswith(".time"):
 		if len(msg.split()) > 1:
 			pass
 		else:
@@ -690,11 +717,20 @@ async def on_message(message):
 				await mem_mention.send(send_msg)
 		except:
 			await message.channel.send(
-			    f"Invalid or no argument found{sad_emojis[random.randrange(0,14)]}"
-			)
+			    f"Invalid or no argument found{sad_emojis[random.randrange(0,14)]}")
+				
+	if msg.startswith("8ball"):
+		await message.reply(random.choice(responses))
 
-	if msg.startswith("Testing"):
-		await message.reply(":one:no space")
+	if msg.startswith(".echo"):
+		try:
+			content = msg.split(".echo ")[1]
+			await message.delete()
+			await message.channel.send(content)
+		except:
+			await message.channel.send(
+			    f"Invalid or no argument found{sad_emojis[random.randrange(0,14)]}")
+
   
 #Execution
 
