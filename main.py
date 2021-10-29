@@ -2,9 +2,12 @@ import os
 import discord
 import wikipedia
 import random
+from bs4 import BeautifulSoup
+import requests
 from time import time,gmtime,strftime
 from keep_alive import keep_alive
 from replit import db
+import lxml
 
 
 
@@ -304,12 +307,13 @@ async def on_message(message):
     :two: ws(Wiki summary): Returns a short summary of the topic.
     :three: wimg(Wiki img): Returns a image related to the topic.
     :four: Wiki random : Returns a random article from wikipedia.
-    :five: time : returns Time (IST)
+    :five: time : returns Time (IST).
+	:six: dict : dictionary:blue_book:.
 
     **TRY OUR MINI GAMES** :video_game:
     :one: :rock: Rock :scroll: Paper :scissors: Scissors.
     :two: Roll :Rolls a :game_die: for you.
-	:three: *ball :8ball <your question>.
+	 :three: 8ball :8ball <your question>.
 
     :notebook_with_decorative_cover: **TRY OUR EVENTS REMINDER** :notebook_with_decorative_cover:
     :warning: It's still in beta and all events are stored under same name/Database \n Individual event reminder will be available soon :warning:
@@ -322,7 +326,7 @@ async def on_message(message):
     :two: Tag <mention/s>:Tags the person anonymously.
     :three: pfp <mention>:Returns the pfp of the person.
     :four: Add Alfred: Returns a link to add to new servers.
-	:five: echo <your text>: Echos back user text. 
+	 :five: echo <your text>: Echos back user text. 
 
     **WELCOMING USERS AND ALERTS**:
     :new:Welcomes new users and sends alerts when a member leaves:new:.
@@ -730,6 +734,23 @@ async def on_message(message):
 		except:
 			await message.channel.send(
 			    f"Invalid or no argument found{sad_emojis[random.randrange(0,14)]}")
+
+	if msg.startswith(".dict"):
+		content = msg.split(".dict ")[1]
+		await message.delete()
+		url = 'https://www.dictionary.com/browse/' + content
+		html_text = requests.get(url).text
+		soup = BeautifulSoup(html_text, "lxml")
+		try:
+			title = soup.find("div",class_ = "css-10n3ydx e1hk9ate0")
+			text = title.find("span", class_ = "one-click-content css-nnyc96 e1q3nk1v1").text
+			await message.channel.send(f"{content}:\n{text}")
+		except:
+			await message.channel.send("Unable to process request!!") 
+	
+
+		
+
 
   
 #Execution
