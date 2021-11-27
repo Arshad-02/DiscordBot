@@ -47,5 +47,7 @@ Discord has stopped support for discord.py after september, Bots can still be cr
 ## Screenshots of commands and features
 ![Alfred help](https://user-images.githubusercontent.com/91333786/143684378-e0ad761a-f8b7-4414-8d26-e8464d3f1f40.jpg)
 ![wikipedia](https://user-images.githubusercontent.com/91333786/143684472-87e36c75-2fd8-4e0d-ac9c-91cd33623306.jpg)
+![dictionary](https://user-images.githubusercontent.com/91333786/143685197-bbadd1c7-a38d-4341-9b69-49066efe5be3.jpg)
+![other features](https://user-images.githubusercontent.com/91333786/143685429-14e3434a-d198-409b-892f-d621a6cd36de.jpg)
 
 
