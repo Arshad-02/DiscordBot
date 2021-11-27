@@ -1,5 +1,11 @@
-# DiscordBot
-Primarily a Bot to access Wikipedia data and a lot more.
+# About Alfred
+A discord bot with a different approach.
+Typically discord bots are directed towards mini games, What makes Alfred different from them is, it's directed towards educating people and helping people in their vocabulary.
+
+## Working
+- I have applied my knowledge of html tags and python to employ web scraping to get data from wikipedia and to return user searches without the need to go searchup everytime using chrome which in many ways saves time and data.
+- There is also a dictionary feature which uses the same practices to scrap the searched words from https://www.dictionary.com/  which anonymously returns results(deletes the user's search request).
+- It also has a array of typical features like mini games and server mangagement commands.
 
 ## Prerequisites
 
@@ -27,6 +33,7 @@ Hosting platform
 - replit server and uptimerobot
 - replit server can be created by executing the `keep_alive.py`
 after creating the server you may want to host it using hosting services,here uptimerobot.
+- hosting services like heroku can also be used.
 
 Uptimerobot
 
@@ -35,4 +42,10 @@ Uptimerobot
 
 ## Note
 
-Discord has stopped support for discord.py after september
+Discord has stopped support for discord.py after september, Bots can still be created and hosted with existing versions
+
+## Screenshots of commands and features
+![Alfred help](https://user-images.githubusercontent.com/91333786/143684378-e0ad761a-f8b7-4414-8d26-e8464d3f1f40.jpg)
+![wikipedia](https://user-images.githubusercontent.com/91333786/143684472-87e36c75-2fd8-4e0d-ac9c-91cd33623306.jpg)
+
+
