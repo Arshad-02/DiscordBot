@@ -2,6 +2,8 @@
 A discord bot with a different approach.
 Typically discord bots are directed towards mini games, What makes Alfred different from them is, it's directed towards educating people and helping people in their vocabulary.
 
+bot link - https://discord.com/api/oauth2/authorize?client_id=845730225249452112&permissions=2148001856&scope=bot
+
 ## Working
 - I have applied my knowledge of html tags and python to employ web scraping to get data from wikipedia and to return user searches without the need to go searchup everytime using chrome which in many ways saves time and data.
 - There is also a dictionary feature which uses the same practices to scrap the searched words from https://www.dictionary.com/  which anonymously returns results(deletes the user's search request).
