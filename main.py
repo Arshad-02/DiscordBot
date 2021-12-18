@@ -50,6 +50,11 @@ announcements = "<#884963094672048182>"
 self_roles = "<#894163842932809748>"
 lounge = "<#884963094672048184>"
 
+#Uruttu Ulagam
+server_5 = 918506977829748786
+chnl_s5 = 918507861754138654
+gif_5 = "https://im3.ezgif.com/tmp/ezgif-3-267ae91fb43a.gif"
+
 #colors
 
 colours = [
@@ -241,6 +246,21 @@ async def on_member_join(member):
 		my_embed.set_image(url= str(gif))
 		await channel.send(embed=my_embed)
 
+	elif member.guild.id == server_5:
+		guild = client.get_guild(server_5)
+		channel = guild.get_channel(chnl_s5)
+		user_name = str(member).split('#')[0]
+		my_embed = discord.Embed(
+		    title=f"Pudhu nabar arikai",
+		    description=
+		    f'''{member.mention},{guild.name} ungalai anboodu varaverkirathu :partying_face:. :hugging:''',
+		    color=colours[random.randrange(0, 10)])
+		my_embed.set_author(name=f"Hello {user_name}",
+		                    icon_url=str(member.avatar_url))
+		my_embed.set_footer(text="Type Alfred help to know more")
+		my_embed.set_image(url=str(gif))
+		await channel.send(embed=my_embed)
+
 	else:
 		guild = client.get_guild(845729877767225344)
 		channel = guild.get_channel(848932882381537372)
@@ -286,6 +306,14 @@ async def on_member_remove(member):
 	elif member.guild.id == server_4:
 		guild = client.get_guild(server_4)
 		channel = guild.get_channel(chnl_s4)
+		my_embed = discord.Embed(
+		    title="SOMEONE LEFT",
+		    description=f"{member.name} has left the server")
+		await channel.send(embed=my_embed)
+	
+	elif member.guild.id == server_5:
+		guild = client.get_guild(server_5)
+		channel = guild.get_channel(chnl_s5)
 		my_embed = discord.Embed(
 		    title="SOMEONE LEFT",
 		    description=f"{member.name} has left the server")
@@ -736,23 +764,41 @@ async def on_message(message):
 			    f"Invalid or no argument found{sad_emojis[random.randrange(0,14)]}")
 
 	if msg.startswith(".dict"):
-		content = msg.split(".dict ")[1]
-		await message.delete()
-		url = 'https://www.dictionary.com/browse/' + content
-		html_text = requests.get(url).text
-		soup = BeautifulSoup(html_text, "lxml")
 		try:
-			title = soup.find("div",class_ = "css-10n3ydx e1hk9ate0")
-			text = title.find("span", class_ = "one-click-content css-nnyc96 e1q3nk1v1").text
-			await message.channel.send(f"{content}:\n{text}")
+			content = msg.split(".dict ")[1]
+			await message.delete()
+			url = 'https://www.dictionary.com/browse/' + content
+			html_text = requests.get(url).text
+			soup = BeautifulSoup(html_text, "lxml")
+			try:
+				title = soup.find("div",class_ = "css-10n3ydx e1hk9ate0")
+				text = title.find("span", class_ = "one-click-content css-nnyc96 e1q3nk1v1").text
+				await message.channel.send(f"{content}:\n{text}")
+			except:
+				await message.channel.send("Unable to process request!!")
 		except:
-			await message.channel.send("Unable to process request!!") 
+			await message.channel.send(f"Invalid or no argument found{sad_emojis[random.randrange(0,14)]}") 
 	
+	if msg.startswith(".google"):
+		try:
+			content = msg.split(".google ")[1]
+			content = content.replace(" ","+") 
+			url = 'https://google.com/search?q='+"search" + content
+			try:
+				request_result=requests.get( url )
+				soup = BeautifulSoup(request_result.text,"lxml")
+				test = soup.find("h3")
+				topic = test.parent
+				the_link = topic.get("href")
+				the_link = the_link.split("&",1)[0]
+				the_link = the_link.split("/url?q=")[1]
+				await message.reply(the_link)
+			except:
+				await message.reply(f"Something went wrong {sad_emojis[random.randrange(0,14)]}")
+		except:
+			await message.channel.send(
+			    f"Invalid or no argument found{sad_emojis[random.randrange(0,14)]}")
 
-		
-
-
-  
 #Execution
 
 keep_alive()
