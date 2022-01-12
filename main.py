@@ -8,6 +8,7 @@ from time import time,gmtime,strftime
 from keep_alive import keep_alive
 from replit import db
 import lxml
+import google
 
 
 
@@ -86,6 +87,7 @@ responses = [
 "My sources say no.",
 "Outlook not so good.",
 "Very doubtful."]
+web_check = ["discord.com","discord.gift","discordapp.com","youtu.be","www.google.com","www.sastra.edu","github.com","stackoverflow.com","animixplay.to","store.steampowered.com","edu.google.com","www.amazon.in","www.flipkart.com","open.spotify.com","www.sololearn.com","tenor.com","meet.google.com","in.pinterest.com","top.gg","dankmemer.lol"]
 
 #presence intent
 
@@ -101,7 +103,9 @@ bot_id = ["<@845730225249452112>"]
 #Choices
 
 options = ["Paper", "Rock", "Scissors"]
+
 soccer = ["Left", "Middle", "Right"]
+
 goalkeeper = [
     ''':goal::goal::goal:
 :man_dancing:
@@ -114,6 +118,7 @@ goalkeeper = [
           
           :soccer:'''
 ]
+
 die_face = [
     ":one:", ":two:", ":three:", ":four:", ":five:", ":six:", ":one:", ":two:",
     ":three:", ":four:", ":five:", ":six:"
@@ -149,6 +154,12 @@ def del_suggestion(index):
 	if len(suggestions) > index:
 		del suggestions[index]
 		db["suggestions"] = suggestions
+
+def soccer_check(message):
+	if message.content.capitalize() in soccer:
+		return True
+	else:
+		return False
 
 
 #initialisations
@@ -338,10 +349,14 @@ async def on_message(message):
     :five: time : returns Time (IST).
 	:six: dict : dictionary:blue_book:.
 
+	:mag:**GOOGLE SEARCH**:mag:
+	:one:google :.google <your search>.
+
     **TRY OUR MINI GAMES** :video_game:
     :one: :rock: Rock :scroll: Paper :scissors: Scissors.
     :two: Roll :Rolls a :game_die: for you.
 	 :three: 8ball :8ball <your question>.
+	 :four: .soccer :soccer:.
 
     :notebook_with_decorative_cover: **TRY OUR EVENTS REMINDER** :notebook_with_decorative_cover:
     :warning: It's still in beta and all events are stored under same name/Database \n Individual event reminder will be available soon :warning:
@@ -365,7 +380,6 @@ async def on_message(message):
     :two: You can now send and recieve pictures, to and from the developers through bot DMs.
 
     **:gear:BETA::gear:**
-      :one: Soccer:soccer:.
       **MORE FEATURES COMING SOON**'''
 		my_embed = discord.Embed(title="Bot commands",
 		                         description=features,
@@ -551,46 +565,48 @@ async def on_message(message):
 
 	multi_str = ''' '''
 	if msg.startswith(".ae"):
-		try:
-			remind = msg.split(".ae ", 1)[1]
-			create_suggestion(remind)
-			await message.reply(
-				f"Event added successfully {happy_emojis[random.randrange(0,14)]},{user_name}")
-		except:
-			pass
+		if str(message.author.id) == "751290034552045681":
+			try:
+				remind = msg.split(".ae ", 1)[1]
+				create_suggestion(remind)
+				await message.reply(
+					f"Event added successfully {happy_emojis[random.randrange(0,14)]},{user_name}")
+			except:
+				pass
 
 	if msg.startswith(".de"):
-		try:
-			check = int(msg.split(".de ")[-1])
+		if str(message.author.id) == "751290034552045681":
 			try:
-				suggestions = []
-				if "suggestions" in db.keys():
-					suggestions = db["suggestions"]
-					n = len(suggestions)
-					index = int(msg.split(".de ", 1)[1])
-					if len(suggestions) >= index:
-						del_suggestion(index)
-						await message.channel.send(
-						f"Event deleted,the remaining events are")
+				check = int(msg.split(".de ")[-1])
+				try:
+					suggestions = []
+					if "suggestions" in db.keys():
 						suggestions = db["suggestions"]
-						t = len(suggestions)
-						for i in range(1, t):
-							multi_str += (f"{i}. {suggestions[i]}") + "\n"
-						my_embed = discord.Embed(title="The events are :-",
-												description=multi_str,
-												color=colours[random.randrange(0, 10)])
-						my_embed.set_thumbnail(url=wiki_logo)
-						my_embed.set_author(name=user_name,
-											icon_url=message.author.avatar_url)
-						my_embed.set_footer(text="Nothing to look here")
-						await message.channel.send(embed=my_embed)
-					else:
-						await message.channel.send("No such element exists")
-			except:
-				await message.channel.send(
-					f"Invalid or no argument found{sad_emojis[random.randrange(0,14)]}")
-		except ValueError:
-			pass
+						n = len(suggestions)
+						index = int(msg.split(".de ", 1)[1])
+						if len(suggestions) >= index:
+							del_suggestion(index)
+							await message.channel.send(
+							f"Event deleted,the remaining events are")
+							suggestions = db["suggestions"]
+							t = len(suggestions)
+							for i in range(1, t):
+								multi_str += (f"{i}. {suggestions[i]}") + "\n"
+							my_embed = discord.Embed(title="The events are :-",
+													description=multi_str,
+													color=colours[random.randrange(0, 10)])
+							my_embed.set_thumbnail(url=wiki_logo)
+							my_embed.set_author(name=user_name,
+												icon_url=message.author.avatar_url)
+							my_embed.set_footer(text="Nothing to look here")
+							await message.channel.send(embed=my_embed)
+						else:
+							await message.channel.send("No such element exists")
+				except:
+					await message.channel.send(
+						f"Invalid or no argument found{sad_emojis[random.randrange(0,14)]}")
+			except ValueError:
+				pass
 
 	if msg.startswith(".re"):
 		check = msg.split(".re")[1]
@@ -600,7 +616,7 @@ async def on_message(message):
 				reminders = db["suggestions"]
 				n = len(reminders)
 				for i in range(1, n):
-					multi_str += (f"{i} .{reminders[i]}") + "\n"
+					multi_str += (f"{i}. {reminders[i]}") + "\n"
 				my_embed = discord.Embed(title="The events are :-",
 										description=multi_str,
 										color=colours[random.randrange(0, 10)])
@@ -666,26 +682,32 @@ async def on_message(message):
 			    f"Invalid or no argument found{sad_emojis[random.randrange(0,14)]}"
 			)
 
-	if msg.startswith(".Soccer1234"):
-		get_msg = await message.channel.send(goalkeeper[1])
-		get_id = get_msg.id
-		time.sleep(2)
-		msgs = await message.channel.fetch_message(get_id)
+	if msg.startswith(".soccer"):
 		choice = goalkeeper[random.randrange(0, 3)]
-		await msgs.edit(content=choice)
-		time.sleep(5)
-		#try getting user id by which you can get user response
-		print(msg)
-		if any(word in msg for word in soccer):
-			print(msg)
-			if choice == goalkeeper[0] and msg == soccer[0]:
-				await message.channel.send(":sparkles: you scored :sparkles:")
-			elif choice == goalkeeper[1] and msgs == soccer[1]:
-				await message.channel.send(":sparkles: you scored :sparkles:")
-			elif choice == goalkeeper[2] and msgs == soccer[2]:
-				await message.channel.send(":sparkles: you scored :sparkles:")
-			else:
-				await message.channel.send("Invalid choice")
+		soccer_msg = await message.reply(choice)
+		try:
+			response = await client.wait_for("message",check=soccer_check,timeout = 3)
+		except:
+			try:
+				choice = goalkeeper[random.randrange(0, 3)]
+				await soccer_msg.edit(content=choice) 
+				response = await client.wait_for("message",check=soccer_check,timeout = 3)
+			except:
+				await message.reply("time out")
+		try:
+			response = response.content.capitalize()
+			if any(word in response for word in soccer):
+				if choice == goalkeeper[0] and response != soccer[0]:
+					await message.channel.send(":sparkles: you scored :sparkles:")
+				elif choice == goalkeeper[1] and response != soccer[1]:
+					await message.channel.send(":sparkles: you scored :sparkles:")
+				elif choice == goalkeeper[2] and response != soccer[2]:
+					await message.channel.send(":sparkles: you scored :sparkles:")
+				else:
+					await message.reply("You lost")
+		except:
+			pass
+			
 
 	if any(word in msg for word in bot_id):
 		my_embed = discord.Embed(
@@ -781,23 +803,34 @@ async def on_message(message):
 	
 	if msg.startswith(".google"):
 		try:
+			await message.channel.send(f"Processing your request... :mag: ,{user_name}.")
 			content = msg.split(".google ")[1]
-			content = content.replace(" ","+") 
-			url = 'https://google.com/search?q='+"search" + content
 			try:
-				request_result=requests.get( url )
-				soup = BeautifulSoup(request_result.text,"lxml")
-				test = soup.find("h3")
-				topic = test.parent
-				the_link = topic.get("href")
-				the_link = the_link.split("&",1)[0]
-				the_link = the_link.split("/url?q=")[1]
-				await message.reply(the_link)
-			except:
-				await message.reply(f"Something went wrong {sad_emojis[random.randrange(0,14)]}")
+				from googlesearch import search
+			except ImportError:
+				print("No module named 'google' found")
+		# to search
+			for j in search(content, tld="co.in", num=1, stop=1, pause=4):
+				await message.reply(j)
 		except:
-			await message.channel.send(
-			    f"Invalid or no argument found{sad_emojis[random.randrange(0,14)]}")
+			await message.reply(f"Something went wrong{sad_emojis[random.randrange(0,14)]}")
+
+	if msg.startswith(".test"):
+		msg = await message.channel.send("editing")
+		await msg.edit(content="not editing") 
+
+	#if "https://" in msg:
+	#	spam_link = msg.split("/")[2]
+	#	if spam_link not in web_check:
+	#		if spam_link in db["suggestions"]:
+	#			await message.reply("(BETA)Already in spam list proceed with caution :warning:") 
+	#		else:
+	#			create_suggestion(spam_link)
+	#			await message.reply("(BETA):warning:Be cautious:warning:")
+	#else:
+	#	pass
+		 
+			
 
 #Execution
 
